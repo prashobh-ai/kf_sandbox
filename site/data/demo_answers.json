@@ -1,0 +1,96 @@
+{
+  "version": 1,
+  "note": "Curated, citation-grounded answers for key demo questions. Rendered instantly (no model load). chunk_ids index into index.json chunks and drive citations, source lineage, and graph activation.",
+  "answers": [
+    {
+      "id": "glucose-intended-use",
+      "q": "What is the intended use of the StatStrip Glucose Hospital Meter?",
+      "aliases": [
+        "what is the intended use of the statstrip glucose meter",
+        "intended use of the glucose meter",
+        "what is the glucose meter used for"
+      ],
+      "chunk_ids": [406, 237, 407],
+      "answer": "The **StatStrip Glucose Hospital Meter System** is a point-of-care, *in vitro* diagnostic device for trained healthcare professionals. It quantitatively measures glucose in fresh capillary, arterial, and venous whole blood, as well as neonate heel-stick specimens, across all hospital and professional healthcare settings — including patients receiving intensive medical intervention or therapy [1][2].\n\nKey conditions of use:\n- Use only single-use, auto-disabling lancing devices for finger-stick or neonate heel-stick sampling [2].\n- It is **not** intended for use with neonate cord blood specimens [3].\n- Results can be reported in mg/dL or mmol/L (factory-set) [1]."
+    },
+    {
+      "id": "neonate",
+      "q": "Can I use these meters on a newborn?",
+      "aliases": [
+        "can i use the glucose meter on a newborn",
+        "can i test a newborn",
+        "is the meter safe for neonates",
+        "newborn baby testing"
+      ],
+      "chunk_ids": [237, 239, 409, 407],
+      "answer": "**Yes — for glucose.** The StatStrip Glucose meters are validated for neonate heel-stick capillary whole blood, so a newborn can be tested in that mode [1]. The lactate and creatinine manuals do not carry a neonate heel-stick indication.\n\nPrecautions for a neonate heel stick:\n- Use only single-use, auto-disabling lancing devices [1].\n- Ensure adequate blood flow to the heel — consider unswaddling the neonate and massaging and/or warming the heel before collection [2][3].\n\nLimitations to note:\n- The system has **not** been evaluated for neonate venous blood [2][3].\n- It is **not** intended for neonate cord blood specimens [4].\n- Use whole blood only — no serum or plasma [3]."
+    },
+    {
+      "id": "sample-types",
+      "q": "What sample types are acceptable?",
+      "aliases": [
+        "what samples can i use",
+        "acceptable sample types",
+        "what blood types are accepted",
+        "which specimens are acceptable"
+      ],
+      "chunk_ids": [134, 350, 10, 237, 410],
+      "answer": "Every meter in this set runs on **fresh whole blood — never serum or plasma** [1][3]. The accepted blood sources differ slightly by device:\n\n- **StatSensor Creatinine:** capillary, arterial, and venous whole blood [1].\n- **StatStrip Lactate:** capillary or venous whole blood; do not use serum or plasma [2][3].\n- **StatStrip Glucose:** capillary, arterial, and venous whole blood, plus neonate heel-stick specimens [4].\n\nCollection-device caution (glucose): fluoride, EDTA, sodium, and ammonium blood-collection devices should not be used for arterial and venous specimens [5]."
+    },
+    {
+      "id": "quality-control",
+      "q": "How do I run a quality control test?",
+      "aliases": [
+        "how do i run qc",
+        "how to run a quality control test",
+        "how to run a qc test",
+        "run a quality control test",
+        "quality control test",
+        "quality control procedure",
+        "how do i perform quality control"
+      ],
+      "chunk_ids": [244, 364, 150, 414, 33],
+      "answer": "Quality control (QC) confirms the meter and strips are performing before you test patients.\n\n**When to run QC** — run two different control levels within each 24 hours of testing, before testing patient specimens; with each new strip lot or shipment; if the meter was dropped or mishandled; and whenever your institution's policy or local/state/federal regulations require it [1].\n\n**How to run it** (StatStrip Glucose / Lactate and StatSensor Creatinine):\n1. From the Patient Test screen, press the **QC** soft key and select the control level (e.g., QC1 / QC2, or the appropriate glucose control level) [2][3].\n2. Insert a test strip and confirm all display segments appear; a flashing blood-drop icon then prompts for sample [4].\n3. Shake the control solution, apply a drop to the strip, and read the result — the meter compares it against the acceptable range for that control lot [5]."
+    },
+    {
+      "id": "glucose-vs-lactate",
+      "q": "What is the difference between the glucose and lactate meters?",
+      "aliases": [
+        "difference between the glucose and lactate meters",
+        "glucose vs lactate meter",
+        "compare glucose and lactate meters",
+        "how do the glucose and lactate meters differ"
+      ],
+      "chunk_ids": [16, 60, 406, 9, 237],
+      "answer": "They measure different analytes and are aimed at different users and settings.\n\n**Analyte & method**\n- The **Lactate Plus** meter is a hand-held device that measures lactate (LAC) in whole blood using a lactate-oxidase, amperometric reaction; a one-step touch of blood to the strip gives a result in about 13 seconds [1][2].\n- The **StatStrip Glucose** meter measures glucose in whole blood at the point of care, reporting in mg/dL or mmol/L [3].\n\n**Intended use & setting**\n- The **Lactate Plus Meter System** is intended for sports and fitness professionals to quantitatively measure lactate in whole blood, and is **not** for the diagnosis, treatment, or monitoring of disease [4].\n- The **StatStrip Glucose Hospital Meter** is a clinical, point-of-care IVD device for healthcare professionals across hospital settings — including patients receiving intensive intervention — and supports capillary, arterial, venous, and neonate heel-stick samples [3][5]."
+    },
+    {
+      "id": "clean-disinfect",
+      "q": "How do I clean and disinfect the meter?",
+      "aliases": [
+        "how do i clean and disinfect the meter",
+        "how to clean and disinfect the meter",
+        "clean and disinfect the meter",
+        "cleaning and disinfecting procedure",
+        "how to clean the meter",
+        "how do i disinfect the meter"
+      ],
+      "chunk_ids": [48, 418, 174, 50, 52],
+      "answer": "All of these meters follow the same two-step **clean, then disinfect** routine, performed before testing each patient [1][2].\n\n1. **Clean:** wipe the entire external surface with a fresh germicidal/cleaning wipe (for example, a 10% household-bleach solution applied to a soft cloth) and dry thoroughly [1][3].\n2. **Disinfect:** with a fresh wipe, keep the surface visibly wet for the required contact time, then dry [1][2].\n\n**Precautions**\n- Never immerse the meter or hold it under running water, and do not spray disinfectant directly onto it [4][5].\n- Always apply the agent to a cloth — not the meter — and dry immediately [4].\n- Do not open the meter to make repairs; doing so voids the warranty [5]."
+    },
+    {
+      "id": "egfr",
+      "q": "How is eGFR estimated from creatinine?",
+      "aliases": [
+        "how is egfr estimated from creatinine",
+        "how is egfr calculated",
+        "how does the meter calculate egfr",
+        "how do i calculate egfr",
+        "egfr calculation",
+        "how is gfr estimated"
+      ],
+      "chunk_ids": [147, 164, 113, 143, 165],
+      "answer": "The **StatSensor Creatinine** meter measures blood creatinine (SCr) and can convert it into an **estimated glomerular filtration rate (eGFR)** using standard published equations [1]. You enter the patient demographics and the meter computes eGFR by one of:\n\n- **MDRD** (adjusted for race): enter age and race [2].\n- **CKD-EPI** (adults): enter age, sex, and race. The equation is eGFR (mL/min/1.73 m²) = 141 × min(SCr/κ,1)^α × max(SCr/κ,1)^−1.209 × 0.993^Age × 1.018 [if female] × 1.159 [if African American] [3][4].\n- **Cockcroft-Gault:** enter age, sex, and weight [5].\n\nValues above 60 are reported as >60 (per NKDEP). Important: an eGFR value does not rule out chronic kidney disease — that must be confirmed by a physician [1]."
+    }
+  ]
+}

@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#05070f" />
+  <title>Nova Biomedical · Knowledge Fabric Command Center</title>
+  <meta name="description" content="Nova Biomedical Knowledge Fabric — mission control for point-of-care meter documentation. Grounded answers from the Lactate Plus Xpress 2, StatSensor Creatinine, and StatStrip Lactate manuals with a live knowledge graph, source lineage, and insights dashboard." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Instrument+Serif&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles/main.css" />
+  <script defer src="https://unpkg.com/vis-network@9.1.9/standalone/umd/vis-network.min.js"></script>
+</head>
+<body>
+  <!-- ===== Command Center top bar ===== -->
+  <header class="cmd-bar">
+    <div class="cmd-brand">
+      <div class="cmd-logo">
+        <span class="cmd-logo-pulse"></span>
+      </div>
+      <div class="cmd-brand-text">
+        <span class="cmd-eyebrow">Nova Biomedical · Knowledge Fabric</span>
+        <span class="cmd-title">POC Meter Command Center</span>
+      </div>
+    </div>
+
+    <nav class="cmd-tiles" id="cmd-tiles">
+      <div class="tile" data-key="documents">
+        <span class="tile-label">Documents</span>
+        <span class="tile-value" id="tile-documents">—</span>
+        <span class="tile-delta">indexed corpus</span>
+      </div>
+      <div class="tile" data-key="entities">
+        <span class="tile-label">Entities</span>
+        <span class="tile-value" id="tile-entities">—</span>
+        <span class="tile-delta">meters · tests · concepts</span>
+      </div>
+      <div class="tile" data-key="relationships">
+        <span class="tile-label">Relationships</span>
+        <span class="tile-value" id="tile-relationships">—</span>
+        <span class="tile-delta">graph edges</span>
+      </div>
+      <div class="tile" data-key="chunks">
+        <span class="tile-label">Knowledge Units</span>
+        <span class="tile-value" id="tile-chunks">—</span>
+        <span class="tile-delta">cited passages</span>
+      </div>
+      <div class="tile" data-key="domains">
+        <span class="tile-label">Domains</span>
+        <span class="tile-value" id="tile-domains">—</span>
+        <span class="tile-delta">knowledge clusters</span>
+      </div>
+    </nav>
+
+    <div class="cmd-status">
+      <span class="status-dot"></span>
+      <span class="status-text">LIVE</span>
+    </div>
+  </header>
+
+  <!-- ===== 4-pane grid ===== -->
+  <main class="grid">
+
+    <!-- ===== Pane 1 :: Knowledge Galaxy ===== -->
+    <section class="pane pane-galaxy">
+      <header class="pane-head">
+        <div>
+          <h2>Knowledge Galaxy</h2>
+          <p class="pane-sub" id="galaxy-status">Interactive knowledge universe</p>
+        </div>
+        <div class="legend">
+          <span class="lg-item"><span class="lg-dot lg-active"></span>activated</span>
+          <span class="lg-item"><span class="lg-dot lg-related"></span>neighbor</span>
+          <span class="lg-item"><span class="lg-dot lg-base"></span>universe</span>
+        </div>
+      </header>
+      <div id="galaxy" class="galaxy-canvas"></div>
+
+      <!-- Activation caption — names exactly which concepts the answer activated -->
+      <div class="galaxy-activation" id="galaxy-activation" hidden>
+        <div class="ga-head">
+          <span class="ga-dot"></span>
+          <span class="ga-title">Activated by your question</span>
+          <span class="ga-meta" id="ga-meta"></span>
+        </div>
+        <div class="ga-chips" id="ga-chips"></div>
+      </div>
+
+      <!-- Floating "Ask Knowledge Fabric" entry sits over the galaxy on mobile -->
+      <div class="ask-launcher" id="ask-launcher" hidden>
+        <button id="ask-launcher-btn">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8z"/></svg>
+          Ask Knowledge Fabric
+        </button>
+      </div>
+
+      <!-- Galaxy detail card (entity / chunk) -->
+      <div class="galaxy-detail" id="galaxy-detail" hidden>
+        <button class="detail-close" id="galaxy-detail-close" aria-label="Close">×</button>
+        <div id="galaxy-detail-body"></div>
+      </div>
+    </section>
+
+    <!-- ===== Pane 2 :: AI Copilot ===== -->
+    <section class="pane pane-copilot">
+      <header class="pane-head">
+        <div>
+          <h2>AI Copilot</h2>
+          <p class="pane-sub" id="copilot-sub">Semantic search across the Nova Biomedical meter manuals</p>
+        </div>
+        <div class="copilot-controls">
+          <button class="ai-enable" id="ai-enable" type="button"
+            title="Load a local AI model that runs entirely in your browser (~0.9 GB, downloaded once and cached). No API keys, no backend — nothing leaves this device.">
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a7 7 0 0 0-4 12.7V17a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-2.3A7 7 0 0 0 12 2z"/><path d="M9 22h6"/></svg>
+            <span id="ai-enable-label">Enable AI synthesis</span>
+          </button>
+          <span class="ai-pill" id="ai-pill" hidden></span>
+        </div>
+        <div class="copilot-metrics" id="copilot-metrics" hidden>
+          <span class="metric"><span class="m-k">conf</span><span class="m-v" id="m-conf">—</span></span>
+          <span class="metric"><span class="m-k">sources</span><span class="m-v" id="m-sources">—</span></span>
+          <span class="metric"><span class="m-k">rels</span><span class="m-v" id="m-rels">—</span></span>
+          <span class="metric"><span class="m-k">paths</span><span class="m-v" id="m-paths">—</span></span>
+        </div>
+      </header>
+
+      <div class="messages" id="messages">
+        <div class="copilot-empty">
+          <div class="copilot-orb"></div>
+          <p class="copilot-hint">Ask Knowledge Fabric</p>
+          <div class="suggestions" id="suggestions">
+            <button class="chip">What is the intended use of the StatStrip Glucose meter?</button>
+            <button class="chip">Can I use these meters on a newborn?</button>
+            <button class="chip">What's the difference between the glucose and lactate meters?</button>
+            <button class="chip">How do I run a quality control test?</button>
+          </div>
+        </div>
+      </div>
+
+      <form class="composer" id="composer-form">
+        <input id="composer-input" type="text" placeholder="Ask Knowledge Fabric…" autocomplete="off" spellcheck="false" />
+        <button type="submit" id="composer-submit">
+          <span>Ask</span>
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </form>
+    </section>
+
+    <!-- ===== Pane 3 :: Source Lineage ===== -->
+    <section class="pane pane-lineage">
+      <header class="pane-head">
+        <div>
+          <h2>Source Lineage</h2>
+          <p class="pane-sub" id="lineage-status">Answer → Document → Page → Paragraph</p>
+        </div>
+        <button class="ghost-btn" id="explain-btn" hidden>
+          <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+          Why did AI say this?
+        </button>
+      </header>
+      <div class="lineage-body" id="lineage-body">
+        <div class="lineage-empty">
+          <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          <p>Ask a question to see the full source lineage —<br/>document, page, section, and paragraph for every claim.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Pane 4 :: Insights ===== -->
+    <section class="pane pane-insights">
+      <header class="pane-head">
+        <div>
+          <h2>Insights Dashboard</h2>
+          <p class="pane-sub">Knowledge density, top concepts, and growth</p>
+        </div>
+        <nav class="tabs" id="insight-tabs">
+          <button class="tab is-active" data-tab="heatmap">Heatmap</button>
+          <button class="tab" data-tab="cloud">Cloud</button>
+          <button class="tab" data-tab="timeline">Timeline</button>
+        </nav>
+      </header>
+      <div class="insights-body">
+        <div class="insight-panel is-active" data-panel="heatmap" id="panel-heatmap"></div>
+        <div class="insight-panel" data-panel="cloud" id="panel-cloud"></div>
+        <div class="insight-panel" data-panel="timeline" id="panel-timeline"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== "Why did AI say this?" overlay ===== -->
+  <div class="explain-overlay" id="explain-overlay" hidden>
+    <div class="explain-modal">
+      <header class="explain-head">
+        <div>
+          <span class="explain-eyebrow">Reasoning Trace</span>
+          <h2>Why did the AI say this?</h2>
+        </div>
+        <button class="detail-close" id="explain-close" aria-label="Close">×</button>
+      </header>
+      <div class="explain-flow" id="explain-flow"></div>
+    </div>
+  </div>
+
+  <!-- ===== Templates ===== -->
+  <template id="tpl-user-msg">
+    <div class="msg msg-user"><div class="msg-bubble"></div></div>
+  </template>
+
+  <template id="tpl-assistant-msg">
+    <div class="msg msg-assistant">
+      <div class="msg-bubble">
+        <div class="answer-text"></div>
+        <div class="answer-actions">
+          <button class="action-btn action-explain">
+            <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+            Explain Answer
+          </button>
+          <span class="answer-confidence">
+            <span class="ac-label">Confidence</span>
+            <span class="ac-bar"><span class="ac-fill"></span></span>
+            <span class="ac-value"></span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

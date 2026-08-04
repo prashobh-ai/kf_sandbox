@@ -1,0 +1,9 @@
+pypdf==5.0.1
+python-docx==1.1.2
+markdown==3.7
+beautifulsoup4==4.12.3
+rank-bm25==0.2.2
+networkx==3.3
+# Semantic embeddings for in-browser semantic search (build-time only).
+# onnxruntime-based; keeps CI lean vs. pulling full torch.
+fastembed==0.3.6
